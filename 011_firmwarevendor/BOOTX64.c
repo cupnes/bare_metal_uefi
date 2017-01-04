@@ -8,10 +8,9 @@ struct EFI_SYSTEM_TABLE {
 	} *ConOut;
 };
 
-int DllMainCRTStartup(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABLE *SystemTable)
+void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABLE *SystemTable)
 {
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"Hello UEFI!\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, SystemTable->FirmwareVendor);
 	while (1);
-	return 0;
 }

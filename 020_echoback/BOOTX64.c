@@ -16,7 +16,7 @@ struct EFI_SYSTEM_TABLE {
 	} *ConOut;
 };
 
-int DllMainCRTStartup(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABLE *SystemTable)
+void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABLE *SystemTable)
 {
 	struct EFI_INPUT_KEY efi_input_key;
 	unsigned short str[3];
@@ -34,6 +34,4 @@ int DllMainCRTStartup(void *ImageHandle __attribute__ ((unused)), struct EFI_SYS
 			SystemTable->ConOut->OutputString(SystemTable->ConOut, str);
 		}
 	}
-
-	return 0;
 }

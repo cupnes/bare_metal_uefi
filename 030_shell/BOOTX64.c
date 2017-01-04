@@ -28,16 +28,6 @@ struct EFI_SYSTEM_TABLE {
 
 struct EFI_SYSTEM_TABLE *SystemTable;
 
-void shell(void);
-
-int DllMainCRTStartup(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABLE *_SystemTable)
-{
-	SystemTable = _SystemTable;
-	shell();
-
-	return 0;
-}
-
 static void str_copy(const unsigned short *src, unsigned short *dst, unsigned int size)
 {
 	for (; size > 0; size--)
@@ -210,4 +200,10 @@ void shell(void)
 			break;
 		}
 	}
+}
+
+void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABLE *_SystemTable)
+{
+	SystemTable = _SystemTable;
+	shell();
 }
