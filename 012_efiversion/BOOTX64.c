@@ -1,5 +1,12 @@
 struct EFI_SYSTEM_TABLE {
-	char _buf1[60];
+	struct {
+		unsigned long long Signature;
+		unsigned int Revision;
+		unsigned int HeaderSize;
+		unsigned int CRC32;
+		unsigned int Reserved;
+	} Hdr;
+	char _buf1[36];
 	struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL {
 		void *_buf;
 		unsigned long long (*OutputString)(struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *, unsigned short *);
@@ -43,12 +50,12 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"UEFI version\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"- Top Half   : ");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(
-						  SystemTable->BootServices->Hdr.Revision >> 16,
+						  SystemTable->Hdr.Revision >> 16,
 						  5, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"- Bottom Half: ");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(
-						  SystemTable->BootServices->Hdr.Revision & 0x0000ffff,
+						  SystemTable->Hdr.Revision & 0x0000ffff,
 						  5, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 
