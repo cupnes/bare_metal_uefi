@@ -51,12 +51,12 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"- Top Half   : ");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(
 						  SystemTable->Hdr.Revision >> 16,
-						  5, str));
+						  4, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"- Bottom Half: ");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(
 						  SystemTable->Hdr.Revision & 0x0000ffff,
-						  5, str));
+						  4, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 
 	while (1);
