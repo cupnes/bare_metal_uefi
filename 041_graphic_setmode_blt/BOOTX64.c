@@ -92,7 +92,7 @@ struct EFI_GRAPHICS_OUTPUT_PROTOCOL {
 	} *Mode;
 };
 
-unsigned short *int_to_ascii(long long val, unsigned char num_digits, unsigned short str[])
+unsigned short *int_to_unicode(long long val, unsigned char num_digits, unsigned short str[])
 {
 	unsigned char digits_base = 0;
 	char i;
@@ -112,7 +112,7 @@ unsigned short *int_to_ascii(long long val, unsigned char num_digits, unsigned s
 	return str;
 }
 
-unsigned short *int_to_ascii_hex(unsigned long long val, unsigned char num_digits, unsigned short str[])
+unsigned short *int_to_unicode_hex(unsigned long long val, unsigned char num_digits, unsigned short str[])
 {
 	short i;
 	unsigned short v;
@@ -138,40 +138,40 @@ void out(struct EFI_SYSTEM_TABLE *SystemTable, struct EFI_GRAPHICS_OUTPUT_PROTOC
 	unsigned short str[32];
 
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"MaxMode: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(gop->Mode->MaxMode, 10, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(gop->Mode->MaxMode, 10, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"Mode: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(gop->Mode->Mode, 10, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(gop->Mode->Mode, 10, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"Version: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(gop->Mode->Info->Version, 10, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(gop->Mode->Info->Version, 10, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"HorizontalResolution: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(gop->Mode->Info->HorizontalResolution, 10, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(gop->Mode->Info->HorizontalResolution, 10, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"VerticalResolution: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(gop->Mode->Info->VerticalResolution, 10, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(gop->Mode->Info->VerticalResolution, 10, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"PixelFormat: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(gop->Mode->Info->PixelFormat, 10, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(gop->Mode->Info->PixelFormat, 10, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"PixelInformation:\r\n");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii_hex(gop->Mode->Info->PixelInformation.RedMask, 8, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode_hex(gop->Mode->Info->PixelInformation.RedMask, 8, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii_hex(gop->Mode->Info->PixelInformation.GreenMask, 8, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode_hex(gop->Mode->Info->PixelInformation.GreenMask, 8, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii_hex(gop->Mode->Info->PixelInformation.BlueMask, 8, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode_hex(gop->Mode->Info->PixelInformation.BlueMask, 8, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii_hex(gop->Mode->Info->PixelInformation.ReservedMask, 8, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode_hex(gop->Mode->Info->PixelInformation.ReservedMask, 8, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"SizeOfInfo: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(gop->Mode->SizeOfInfo, 10, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(gop->Mode->SizeOfInfo, 10, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"FrameBufferBase: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii_hex(gop->Mode->FrameBufferBase, 16, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode_hex(gop->Mode->FrameBufferBase, 16, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"FrameBufferSize: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii_hex(gop->Mode->FrameBufferSize, 16, str));
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode_hex(gop->Mode->FrameBufferSize, 16, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 
 	switch (gop->Blt(gop, blt_buf, EfiBltBufferToVideo, 0, 0, 200, 0, BLT_WIDTH, BLT_HEIGHT, 0)) {

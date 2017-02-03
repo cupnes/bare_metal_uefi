@@ -90,7 +90,7 @@ struct EFI_GRAPHICS_OUTPUT_PROTOCOL {
 	} *Mode;
 };
 
-unsigned short *int_to_ascii(long long val, unsigned char num_digits, unsigned short str[])
+unsigned short *int_to_unicode(long long val, unsigned char num_digits, unsigned short str[])
 {
 	unsigned char digits_base = 0;
 	char i;
@@ -110,7 +110,7 @@ unsigned short *int_to_ascii(long long val, unsigned char num_digits, unsigned s
 	return str;
 }
 
-unsigned short *int_to_ascii_hex(unsigned long long val, unsigned char num_digits, unsigned short str[])
+unsigned short *int_to_unicode_hex(unsigned long long val, unsigned char num_digits, unsigned short str[])
 {
 	short i;
 	unsigned short v;

@@ -23,7 +23,7 @@ struct EFI_SYSTEM_TABLE {
 	} *BootServices;
 };
 
-unsigned short *int_to_ascii(long long val, unsigned char num_digits, unsigned short str[])
+unsigned short *int_to_unicode(long long val, unsigned char num_digits, unsigned short str[])
 {
 	unsigned char digits_base = 0;
 	char i;
@@ -49,12 +49,12 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"UEFI version\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"- Top Half   : ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(
 						  SystemTable->Hdr.Revision >> 16,
 						  4, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"- Bottom Half: ");
-	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_ascii(
+	SystemTable->ConOut->OutputString(SystemTable->ConOut, int_to_unicode(
 						  SystemTable->Hdr.Revision & 0x0000ffff,
 						  4, str));
 	SystemTable->ConOut->OutputString(SystemTable->ConOut, L"\r\n");
