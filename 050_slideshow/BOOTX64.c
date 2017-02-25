@@ -175,6 +175,12 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 			if (i > 0)
 				i--;
 			break;
+		case L'h':
+			i = 0;
+			break;
+		case L'l':
+			i = NUM_IMGS - 1;
+			break;
 		}
 	}
 }
