@@ -1,10 +1,10 @@
 #!/bin/bash
 
 width=640
-dst=img
 
-for orig in $@; do
-	new="$dst/$(basename ${orig%.*}).png"
-	echo "orig=$orig, new=$new"
-	convert $orig -resize ${width}x $new
+mkdir -p bgra
+for img in $(ls img/*); do
+	bgra="bgra/$(basename ${img%.*}).bgra"
+	echo "img=$img, bgra=$bgra"
+	convert $img -resize ${width}x -depth 8 $bgra
 done
