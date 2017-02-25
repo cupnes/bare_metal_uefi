@@ -1,4 +1,4 @@
-#define NUM_IMGS	2
+#define NUM_IMGS	<<NUM_IMGS>>
 
 struct IMG {
 	unsigned int width;
