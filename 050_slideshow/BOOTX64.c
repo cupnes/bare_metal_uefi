@@ -160,10 +160,11 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 	struct EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
 	struct EFI_INPUT_KEY efi_input_key;
 	unsigned int i;
+	unsigned char quit = 0;
 
 	SystemTable->BootServices->LocateProtocol(&gop_guid, NULL, (void **)&gop);
 
-	while (1) {
+	while (!quit) {
 		blt(gop, img[i].addr, img[i].width, img[i].height);
 		while (SystemTable->ConIn->ReadKeyStroke(SystemTable->ConIn, &efi_input_key));
 		switch (efi_input_key.UnicodeChar) {
@@ -180,6 +181,9 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 			break;
 		case L'l':
 			i = NUM_IMGS - 1;
+			break;
+		case L'q':
+			quit = 1;
 			break;
 		}
 	}
