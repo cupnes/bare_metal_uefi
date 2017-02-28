@@ -5,6 +5,7 @@
 #define EFI_SUCCESS	0
 #define EFI_INVALID_PARAMETER	EFIERR(2)
 #define EFI_DEVICE_ERROR	EFIERR(7)
+#define SKIP_SIZE	10
 
 struct EFI_INPUT_KEY {
 	unsigned short ScanCode;
@@ -159,7 +160,7 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 	struct EFI_GUID gop_guid = {0x9042a9de, 0x23dc, 0x4a38, {0x96, 0xfb, 0x7a, 0xde, 0xd0, 0x80, 0x51, 0x6a}};
 	struct EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
 	struct EFI_INPUT_KEY efi_input_key;
-	unsigned int i;
+	int i;
 	unsigned char quit = 0;
 
 	SystemTable->BootServices->LocateProtocol(&gop_guid, NULL, (void **)&gop);
@@ -172,9 +173,21 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 			if (i < NUM_IMGS - 1)
 				i++;
 			break;
+		case L'J':
+			if (i < NUM_IMGS - 1)
+				i += SKIP_SIZE;
+			if (i >= NUM_IMGS)
+				i = NUM_IMGS - 1;
+			break;
 		case L'k':
 			if (i > 0)
 				i--;
+			break;
+		case L'K':
+			if (i > 0)
+				i -= SKIP_SIZE;
+			if (i < 0)
+				i = 0;
 			break;
 		case L'h':
 			i = 0;
