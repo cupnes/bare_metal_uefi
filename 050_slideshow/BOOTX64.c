@@ -160,7 +160,7 @@ void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABL
 	struct EFI_GUID gop_guid = {0x9042a9de, 0x23dc, 0x4a38, {0x96, 0xfb, 0x7a, 0xde, 0xd0, 0x80, 0x51, 0x6a}};
 	struct EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
 	struct EFI_INPUT_KEY efi_input_key;
-	int i;
+	int i = 0;
 	unsigned char quit = 0;
 
 	SystemTable->BootServices->LocateProtocol(&gop_guid, NULL, (void **)&gop);
