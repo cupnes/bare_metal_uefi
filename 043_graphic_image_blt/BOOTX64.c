@@ -2635,14 +2635,20 @@ unsigned char img[] = {
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 };
 
-void efi_main(void *ImageHandle __attribute__ ((unused)), struct EFI_SYSTEM_TABLE *SystemTable)
+void efi_main(void *ImageHandle __attribute__ ((unused)),
+	      struct EFI_SYSTEM_TABLE *SystemTable)
 {
-	struct EFI_GUID gop_guid = {0x9042a9de, 0x23dc, 0x4a38, {0x96, 0xfb, 0x7a, 0xde, 0xd0, 0x80, 0x51, 0x6a}};
+	struct EFI_GUID gop_guid = {0x9042a9de, 0x23dc, 0x4a38,
+				    {0x96, 0xfb, 0x7a, 0xde,
+				     0xd0, 0x80, 0x51, 0x6a}};
 	struct EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
 
-	SystemTable->BootServices->LocateProtocol(&gop_guid, NULL, (void **)&gop);
+	SystemTable->BootServices->LocateProtocol(&gop_guid, NULL,
+						  (void **)&gop);
 
-	gop->Blt(gop, (struct EFI_GRAPHICS_OUTPUT_BLT_PIXEL *)img, EfiBltBufferToVideo, 0, 0, 0, 0, IMG_WIDTH, IMG_HEIGHT, 0);
+	gop->Blt(gop, (struct EFI_GRAPHICS_OUTPUT_BLT_PIXEL *)img,
+		 EfiBltBufferToVideo, 0, 0, 0, 0, IMG_WIDTH, IMG_HEIGHT,
+		 0);
 
 	while (1);
 }
